@@ -1,0 +1,292 @@
+:root {
+  --pitch: #000;
+  --bone: #fff;
+  --wizardry: #bf37ff;
+  --sorcery: #379fff;
+  --pool: #016fd0;
+  --shadow: #751290;
+  --ember: #ff3f37;
+  --blood: #eb001b;
+  --grave: #777;
+  --ash: #c4c4c4;
+  --poison: #77ff37;
+  --slate: rgb(65, 84, 98);
+  --leaf: #48ad19;
+  --blurSize: 10px;
+}
+
+[data-theme="light"],:root:not([data-theme="dark"]) {
+  --p1fg: var(--bone);
+  --p2fg: var(--pitch);
+}
+
+[data-theme="dark"] {
+  --p1fg: var(--ash);
+  --p2fg: var(--blood);
+}
+
+/* Theme overrides for pico-css.
+ * (no that's a completely unrelated project the cryptic picoverse
+ *  but the authors seem to be of a similar mindset <3)
+ */
+/* Purple Light scheme (Default) */
+/* Can be forced with data-theme="light" */
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+  --primary: #8e24aa;
+  --primary: var(--pitch);
+  --primary-hover: #7b1fa2;
+  --primary-focus: rgba(142, 36, 170, 0.125);
+  --primary-inverse: #FFF;
+}
+
+/* Purple Dark scheme (Auto) */
+/* Automatically enabled if user has Dark mode enabled */
+@media only screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary: #8e24aa;
+    --primary-hover: #9c27b0;
+    --primary-focus: rgba(142, 36, 170, 0.25);
+    --primary-inverse: #FFF;
+  }
+}
+
+/* Purple Dark scheme (Forced) */
+/* Enabled if forced with data-theme="dark" */
+[data-theme="dark"] {
+  --primary: #8e24aa;
+  --primary-hover: #9c27b0;
+  --primary-focus: rgba(142, 36, 170, 0.25);
+  --primary-inverse: #FFF;
+}
+
+/* Purple (Common styles) */
+:root {
+  --form-element-active-border-color: var(--primary);
+  --form-element-focus-color: var(--primary-focus);
+  --switch-color: var(--primary-inverse);
+  --switch-checked-background-color: var(--primary);
+}
+
+root [data-theme="dark"] {
+  background-color: var(--pitch);
+}
+/*-- END OF Pico-css config --*/
+
+/* Typography */
+h1, h2, h3 { font-weight: 100; }
+h4, h5, h6, button, a[role=button] {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* global components */
+
+/** bottom navbar */
+main.has-bar { padding-bottom: 4em; }
+bar {
+  background-color: var(--pitch);
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  margin: 0;
+  height: 4em;
+  padding: 0 0.6em;
+  z-index: 100;
+}
+bar round {
+  display: inline-block;
+  margin: 0.3em;
+  box-shadow: 0 0 var(--blurSize) var(--ash);
+  width: 36pt;
+  height: 36pt;
+  text-align: center;
+  border-radius: 100%;
+  font-size: 18pt;
+  line-height: 18pt;
+}
+bar round .notifications-badge {
+  margin: -0.3em 0 -0.7em 0;
+  font-size: 12pt;
+}
+bar round .notifications-badge:not(.zero) {
+  color: var(--ember);
+}
+bar round .bimg {
+  max-width: 97%;
+  max-height: 97%;
+  border-radius: 100%;
+}
+/* bar round svg.icon { max-width: 36px; max-height: 28px; }*/ /* TODO: not responsive */
+bar round:nth-child(1) { box-shadow: 0 0 var(--blurSize) var(--wizardry); }
+bar round:nth-child(2) { box-shadow: 0 0 var(--blurSize) var(--sorcery); }
+bar round:nth-child(4) { box-shadow: 0 0 var(--blurSize) var(--blood); }
+bar round:nth-child(5) { box-shadow: 0 0 var(--blurSize) var(--leaf); }
+
+bar round:nth-child(1):hover { box-shadow: 0 0 calc(var(--blurSize) * 2.5) var(--wizardry); }
+bar round:nth-child(2):hover { box-shadow: 0 0 calc(var(--blurSize) * 2.5) var(--sorcery); }
+bar round:nth-child(4):hover { box-shadow: 0 0 calc(var(--blurSize) * 2.5) var(--blood); }
+bar round:nth-child(5):hover { box-shadow: 0 0 calc(var(--blurSize) * 2.5) var(--leaf); }
+
+bar stat { display: block; line-height: 0; }
+bar stat h3, bar stat h6 {
+  color: var(--chalk);
+  line-height: 1rem;
+  margin: 0;
+  padding: 0;
+}
+bar stat h6 {
+  font-size: smaller;
+  margin-top: 4px;
+}
+/** end of bottom-navbar */
+
+/** Developers info bar */
+main.has-dev { padding-top: 1em; }
+dev-bar {
+  position: fixed;
+  width: 100%;
+  padding: 0px 4px;
+  font-size: small;
+  background-color: var(--pitch);
+  color: var(--ash);
+}
+dev-bar btn {
+  margin: 0 0px;
+  padding: 0 1em;
+  font-size: small;
+  font-weight: bold;
+  background-color: var(--shadow);
+  color: var(--bone);
+  border: none;
+  display: inline;
+}
+dev-bar btn.danger {
+  background-color: var(--blood);
+}
+/** end of devbar */
+
+idsqr {
+  display: block;
+  background-color: var(--pitch);
+  width: 300px;
+  height: 300px;
+  padding: 1em;
+}
+
+.row, .column, .col { display: flex; } /* TODO: move this rule to flexi.css */
+/*---- Pico CSS unpad/repad ----*/
+.no-margin, .nogap { margin: unset; }
+.pad { padding: var(--block-spacing-vertical) var(--block-spacing-horizontal); }
+.hpad { padding: 0 var(--block-spacing-horizontal); }
+.vpad { padding: var(--block-spacing-vertical) 0; }
+.gap { margin: var(--block-spacing-vertical) var(--block-spacing-horizontal); }
+.vgap { margin: var(--block-spacing-vertical) 0; }
+.hgap { margin: 0 var(--block-spacing-horizontal); }
+
+
+/* SVG Sprite Icons (Unset pico.css fill rule)*/
+svg.icon {
+  /* fill: none; */
+  max-width: 1.4em;
+  height: 1em;
+}
+
+/*----- views/Pub.svelte: Peer Card */
+:root { --mdsqrsz: 300px; }
+article.peer {
+  padding: 0;
+  max-width: var(--mdsqrsz);
+  margin: 0;
+}
+article.peer overlay h2,
+article.peer overlay h3 { margin: 0; }
+article.peer legend .bimg { width: 100%; }
+
+article.peer legend {
+  width: var(--mdsqrsz);
+  height: var(--mdsqrsz);
+}
+
+article.peer legend overlay {
+  width: var(--mdsqrsz);
+  height: var(--mdsqrsz);
+  position: absolute;
+  z-index: 11;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "nw ne"
+    "w e"
+    "sw se";
+}
+
+article.peer legend h2, article.peer legend h3 {
+  color: var(--bone);
+}
+
+article.peer dot {
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  vertical-align: baseline;
+  border-radius: 100%;
+  background-color: var(--ash);
+  line-height: 1em;
+  margin: 0 0.3em;
+}
+article.peer dot.vibing {
+  background-color: var(--wizardry);
+}
+/*-- END OF PEER CARD --*/
+
+.view-shop {
+  background-color: var(--pitch);
+  display: block;
+}
+
+/*-- Chat view --*/
+chat svg.icon {
+  margin: -0.2em;
+}
+svg.icon.p1:not(.nofill) {
+  fill: var(--p1fg);
+  color: var(--p2fg);
+}
+svg.icon.p2:not(.nofill) {
+  fill: var(--p2fg);
+  color: var(--p1fg);
+}
+health svg.icon.full { fill: var(--blood); }
+health svg.icon.empty { fill: var(--grave); }
+button svg.icon.not(.nofill), a[role=button] svg.icon {
+  color: var(--bone);
+  fill: var(--blood);
+  font-size: 1.6rem;
+  margin: -0.5em -0.4em;
+}
+
+/*** About page ***/
+logo {
+  --size: 80vw;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  font-size: var(--size);
+  line-height: var(--size);
+  width: var(--size);
+  height: var(--size);
+  text-align: left;
+  vertical-align: unset;
+  /* border: 1px solid black;*/
+  overflow: hidden;
+  border-radius: calc(var(--size) * 0.1);
+}
+logo svg.icon {
+  vertical-align: unset;
+  margin-top: -1px; /* wtf */
+  --size: 80vw;
+  width: var(--size);
+  height: var(--size);
+}
