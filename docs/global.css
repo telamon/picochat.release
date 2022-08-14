@@ -76,7 +76,7 @@ root [data-theme="dark"] {
 
 /* Typography */
 h1, h2, h3 { font-weight: 300; }
-h4, h5, h6, button, a[role=button] {
+h4, h5, h6, button, *[role=button] {
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -195,9 +195,9 @@ idsqr {
 .row, .column, .col { display: flex; } /* TODO: move this rule to flexi.css */
 /*---- Pico CSS unpad/repad ----*/
 .no-margin, .nogap { margin: unset; }
-.nopad, a[role=button] { padding: 0; }
+.nopad, *[role=button] { padding: 0; }
 .pad { padding: var(--block-spacing-vertical) var(--block-spacing-horizontal); }
-.hpad, a[role=button]:not(.nopad) { padding: 0 var(--block-spacing-horizontal); }
+.hpad, *[role=button]:not(.nopad) { padding: 0 var(--block-spacing-horizontal); }
 .vpad { padding: var(--block-spacing-vertical) 0; }
 .gap { margin: var(--block-spacing-vertical) var(--block-spacing-horizontal); }
 .vgap { margin: var(--block-spacing-vertical) 0; }
@@ -267,7 +267,7 @@ article.peer dot.vibing {
 }
 
 /*-- Chat view --*/
-chat {
+.view-chat chat {
   display: grid;
   grid-template-rows: 80px auto 8em /*var(--bar-height)*/;
   grid-template-areas:
@@ -277,7 +277,7 @@ chat {
     /*"dead";*/
   height: calc(100vh - var(--bar-height));
 }
-main.has-dev chat { height: calc(100vh - 1em - var(--bar-height)); }
+.view-chat main.has-dev chat { height: calc(100vh - 1em - var(--bar-height)); }
 
 chat svg.icon {
   margin: -0.2em;
@@ -292,7 +292,7 @@ svg.icon.black:not(.nofill) {
 }
 health svg.icon.full { fill: var(--blood); }
 health svg.icon.empty { fill: var(--grave); }
-button svg.icon.not(.nofill), a[role=button] svg.icon {
+.view-chat button svg.icon.not(.nofill), *[role=button] svg.icon {
   color: var(--bone);
   fill: var(--blood);
   font-size: 1.6rem;
@@ -351,7 +351,7 @@ balance black {
   background-color: var(--p2);
   color: var(--p1);
 }
-
+error { color: var(--blood); }
 /* Chromatic pearl effect
  *margin: 5px;
   box-shadow: 0 0 5px var(--wizardry);
