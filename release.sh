@@ -13,6 +13,6 @@ rm -rf ./docs \
   && touch docs/.nojekyll \
   && git add . \
   && git commit -am "automated release script, TODO: source tag" \
-  && echo "done"
+  && echo "done, don't forget to 'git push'"
 
 
