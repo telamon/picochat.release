@@ -68,11 +68,6 @@
   --switch-color: var(--primary-inverse);
   --switch-checked-background-color: var(--primary);
 }
-/*
-[data-theme="dark"] {
-  background-color: var(--pitch);
-  display: block;
-} */
 /*-- END OF Pico-css config --*/
 
 /* Typography */
@@ -89,16 +84,32 @@ h4, h5, h6, button, *[role=button] {
   border-color: var(--leaf);
 }
 [data-theme="dark"] button.purple, [data-theme="dark"] *[role=button].purple {
-  background-color: var(--wizardry);
-  border-color: var(--wizardry);
+  background-color: var(--shadow);
+  border-color: var(--shadow);
 }
-[data-theme="dark"] button.blue, [data-theme="dark"] *[role=button].red {
-  background-color: var(--sorcery);
-  border-color: var(--sorcery);
+[data-theme="dark"] button.blue, [data-theme="dark"] *[role=button].blue {
+  background-color: var(--pool);
+  border-color: var(--pool);
 }
 [data-theme="dark"] button.red, [data-theme="dark"] *[role=button].red {
   background-color: var(--blood);
   border-color: var(--blood);
+}
+[data-theme="dark"] button.green:hover, [data-theme="dark"] *[role=button].green:hover {
+  background-color: var(--poison);
+  border-color: var(--poison);
+}
+[data-theme="dark"] button.purple:hover, [data-theme="dark"] *[role=button].purple:hover {
+  background-color: var(--wizardry);
+  border-color: var(--wizardry);
+}
+[data-theme="dark"] button.blue:hover, [data-theme="dark"] *[role=button].blue:hover {
+  background-color: var(--sorcery);
+  border-color: var(--sorcery);
+}
+[data-theme="dark"] button.red:hover, [data-theme="dark"] *[role=button].red:hover {
+  background-color: var(--ember);
+  border-color: var(--ember);
 }
 /* light theme */
 [data-theme="light"] button.purple,
@@ -122,18 +133,51 @@ h4, h5, h6, button, *[role=button] {
   :root:not([data-theme="dark"]) *[role=button].blue
   { color: var(--sorcery); }
 
+/* Light hover */
+[data-theme="light"] button.purple:hover,
+  :root:not([data-theme="dark"]) button.purple:hover,
+  [data-theme="light"] *[role=button].purple:hover,
+  :root:not([data-theme="dark"]) *[role=button].purple:hover {
+    background-color: var(--shadow);
+    border-color: var(--shadow);
+    color: var(--primary-inverse);
+  }
+[data-theme="light"] button.red:hover,
+  :root:not([data-theme="dark"]) button.red:hover,
+  [data-theme="light"] *[role=button].red:hover,
+  :root:not([data-theme="dark"]) *[role=button].red:hover {
+    background-color: var(--blood);
+    border-color: var(--blood);
+    color: var(--primary-inverse);
+  }
+[data-theme="light"] button.blue:hover,
+  :root:not([data-theme="dark"]) button.blue:hover,
+  [data-theme="light"] *[role=button].blue:hover,
+  :root:not([data-theme="dark"]) *[role=button].blue:hover {
+    background-color: var(--pool);
+    border-color: var(--pool);
+    color: var(--primary-inverse);
+  }
+[data-theme="light"] button.green:hover,
+  :root:not([data-theme="dark"]) button.green:hover,
+  [data-theme="light"] *[role=button].green:hover,
+  :root:not([data-theme="dark"]) *[role=button].green:hover {
+    background-color: var(--leaf);
+    border-color: var(--leaf);
+    color: var(--primary-inverse);
+  }
+
 /* Restore dark-theme button color nested inside light-theme */
+.view-shop button { white-space: nowrap; }
 .view-shop button.red,
 .view-shop button.green,
 .view-shop button.blue,
 .view-shop button.purple { color: var(--primary-inverse) !important; }
 /* TODO: fix light-theme color/bg-color on :hover */
-
 red { color: var(--leaf); }
 blue { color: var(--pool); }
 purple { color: var(--shadow); }
 error, .error, red { color: var(--blood); }
-
 
 /* global components */
 
@@ -268,23 +312,20 @@ svg.icon {
 
 /*----- views/Pub.svelte: Peer Card */
 article.peer {
-  --mdsqrsz: 300px;
+  --mdsqrsz: 250px;
   padding: 0;
-  max-width: var(--mdsqrsz);
-  /* margin: 0; */
   margin: 0 var(--block-spacing-horizontal);
   margin-bottom: var(--block-spacing-vertical);
 }
 article.peer overlay h2,
 article.peer overlay h3 { margin: 0; }
+/* ensure children don't escape */
+article.peer legend { position: relative; }
 article.peer legend .bimg { width: 100%; }
-article.peer legend {
-  width: var(--mdsqrsz);
-  height: var(--mdsqrsz);
-}
 article.peer legend overlay {
-  width: var(--mdsqrsz);
-  height: var(--mdsqrsz);
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
   position: absolute;
   z-index: 11;
   display: grid;
@@ -304,12 +345,13 @@ article.peer legend h2, article.peer legend h3 {
 
 article.peer dot {
   display: inline-block;
-  width: 0.8em;
-  height: 0.8em;
+  width: 0.8rem;
+  height: 0.8rem;
   border-radius: 50%;
   background-color: var(--ash);
-  line-height: 1rem;
-  margin: 0 0.3em;
+  line-height: 1em;
+  vertical-align: middle;
+  margin: 0 0.3rem;
   opacity: 0.8;
 }
 article.peer dot.active {
@@ -333,6 +375,7 @@ dialog article.peer {
   --mdsqrsz: 84vw;
   margin: 0;
 }
+peers article.peer { max-width: var(--mdsqrsz);}
 /*-- END OF PEER CARD --*/
 
 .view-shop {
@@ -430,32 +473,33 @@ balance black {
   border: 5px solid #ffc1c1;
 */
 
-wallet-view {
+/** wallet + other places **/
+
+inventory {
   --slot: 50px;
   --slot-gap: 1px;
   /* slot bounding box */
   --sb: calc(var(--slot) + var(--slot-gap) * 2);
-}
-/** wallet **/
-wallet-view inventory {
   display: block;
   margin: 1em;
-  min-height: calc(var(--sb) * 5);
-  width: calc(var(--sb) * 6);
+  min-width: var(--sb);
+  min-height: var(--sb);
 
-  background-image: radial-gradient(circle, var(--ash) 66%, var(--bone) 0%);
+  background-image: radial-gradient(circle, var(--ash) 66%, rgba(0,0,0,0) 0%);
   background-repeat: repeat;
   background-position: 0 0, var(--sb) var(--sb);
   background-size: var(--sb) var(--sb);
 }
-
-[data-theme="dark"] wallet-view inventory {
+[data-theme="dark"] inventory {
   background-image: radial-gradient(circle, var(--slate) 66%, rgba(0,0,0,0) 0%);
 }
-wallet-view h1 small {
-  font-size: 0.6em;
+
+wallet-view inventory {
+  min-height: calc(var(--sb) * 4);
+  width: calc(var(--sb) * 6);
 }
-wallet-view item[role='button'] {
+
+inventory item[role='button'] {
   display: inline-block;
   width: var(--slot);
   height: var(--slot);
@@ -465,25 +509,21 @@ wallet-view item[role='button'] {
   line-height: var(--slot);
   vertical-align: middle;
   padding: 0 !important;
-  /*
-  background-color: var(--ash);
-  border: 1px solid var(--grave);
-  color: var(--bone);*/
 }
-[data-theme="dark"] wallet-view item[role='button'] {
+[data-theme="dark"] inventory item[role='button'] {
   background-color: var(--pitch);
 }
-wallet-view item emo {
+inventory item emo {
   box-shadow: 0 0 var(--blurSize) var(--chalk);
   border-radius: 50%;
 }
-wallet-view item.misc emo {
+inventory item.misc emo {
   box-shadow: 0 0 var(--blurSize) var(--leaf);
 }
-wallet-view item.drinks emo {
+inventory item.drinks emo {
   box-shadow: 0 0 var(--blurSize) var(--sorcery);
 }
-wallet-view item.gear emo {
+inventory item.gear emo {
   box-shadow: 0 0 var(--blurSize) var(--wizardry);
 }
 
